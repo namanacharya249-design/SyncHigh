@@ -476,6 +476,9 @@ body.cta-on .wa-float{bottom:118px}
    above everything, clearer floating navbar gap on mobile
    ============================================================ */
 #scrollProgress{height:5px;z-index:2500;top:0}
+/* v5 fix: the progress line now lives INSIDE the header, riding the bottom edge of
+   the floating navbar itself — the navbar can never cover it, in any viewer */
+#scrollProgress{position:absolute;top:auto;bottom:2px;left:18px;right:18px;height:4px;z-index:5;border-radius:99px}
 @media(max-width:760px){
   header{top:16px;width:92%;box-shadow:0 18px 42px rgba(16,34,46,.20)}
   /* compact one-row CTA bar: small tick, headline, small button inline */
