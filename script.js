@@ -119,4 +119,68 @@
   // Footer year
   var yr = document.getElementById("year");
   if (yr) yr.textContent = new Date().getFullYear();
+
+  // ---- v2: scroll progress line (draws as you scroll) ----
+  var prog = document.createElement("div");
+  prog.id = "scrollProgress";
+  document.body.appendChild(prog);
+  var pTick = false;
+  function updProgress() {
+    var h = document.documentElement;
+    var max = h.scrollHeight - h.clientHeight;
+    prog.style.transform = "scaleX(" + (max > 0 ? window.scrollY / max : 0) + ")";
+    pTick = false;
+  }
+  window.addEventListener("scroll", function () {
+    if (!pTick) { pTick = true; requestAnimationFrame(updProgress); }
+  }, { passive: true });
+  updProgress();
+
+  // ---- v2: buttery smooth scrolling (Lenis, glide tuned smoother) ----
+  var reduceMotion = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+  if (!reduceMotion) {
+    var ls = document.createElement("script");
+    ls.src = "https://cdn.jsdelivr.net/npm/lenis@1.1.14/dist/lenis.min.js";
+    ls.onload = function () {
+      if (typeof Lenis === "undefined") return; // CDN failed -> native scroll, site still fine
+      var lenis = new Lenis({ lerp: 0.085, smoothWheel: true, wheelMultiplier: 1, touchMultiplier: 1.15 });
+      function raf(time) { lenis.raf(time); requestAnimationFrame(raf); }
+      requestAnimationFrame(raf);
+      // in-page anchor links glide to their target instead of jumping
+      document.querySelectorAll('a[href^="#"]').forEach(function (a) {
+        a.addEventListener("click", function (e) {
+          var id = a.getAttribute("href");
+          if (id && id.length > 1) {
+            var t = document.querySelector(id);
+            if (t) { e.preventDefault(); lenis.scrollTo(t, { offset: -100 }); }
+          }
+        });
+      });
+    };
+    document.head.appendChild(ls);
+  }
+
+  // ---- v2: hero browser-card tilt (fine pointers / desktop only) ----
+  var hv = document.querySelector(".hero-visual");
+  if (hv && !reduceMotion && window.matchMedia("(pointer: fine)").matches) {
+    var card = hv.querySelector(".browser-card");
+    if (card) {
+      var tRaf = null;
+      hv.addEventListener("pointermove", function (e) {
+        if (tRaf) return;
+        tRaf = requestAnimationFrame(function () {
+          var r = hv.getBoundingClientRect();
+          var x = (e.clientX - r.left) / r.width - 0.5;
+          var y = (e.clientY - r.top) / r.height - 0.5;
+          card.style.transform = "rotateY(" + (x * 7).toFixed(2) + "deg) rotateX(" + (-y * 7).toFixed(2) + "deg)";
+          tRaf = null;
+        });
+      });
+      hv.addEventListener("pointerleave", function () {
+        card.style.transition = "transform .6s cubic-bezier(.2,.7,.3,1)";
+        card.style.transform = "";
+        setTimeout(function () { card.style.transition = ""; }, 650);
+      });
+    }
+  }
 })();

@@ -354,3 +354,103 @@ footer h4{color:#fff;font-size:.95rem;margin-bottom:18px;letter-spacing:.4px}
   .stats{gap:12px}
   .stat{padding:22px 12px}
 }
+
+/* ============================================================
+   v2 upgrades — floating nav, themed scrollbar, scroll progress
+   line, CTA pill, hero motion assets (Drivisa-inspired, 2026-11-13)
+   ============================================================ */
+
+/* ---------- custom scrollbar (themed to SyncHigh) ---------- */
+html{scrollbar-width:thin;scrollbar-color:#1288c8 #efe7d7}
+::-webkit-scrollbar{width:10px;height:10px}
+::-webkit-scrollbar-track{background:#efe7d7}
+::-webkit-scrollbar-thumb{background:linear-gradient(180deg,#0a4d9e 0%,#1288c8 52%,#14b8a6 100%);
+  border-radius:99px;border:2px solid #efe7d7}
+::-webkit-scrollbar-thumb:hover{background:linear-gradient(180deg,#083c7d 0%,#0e6ea8 52%,#0e9bb5 100%)}
+
+/* ---------- scroll progress line (draws across the top) ---------- */
+#scrollProgress{position:fixed;top:0;left:0;right:0;height:4px;z-index:1300;pointer-events:none;
+  background:var(--grad);transform-origin:0 50%;transform:scaleX(0);
+  border-radius:0 99px 99px 0;box-shadow:0 1px 8px rgba(18,136,200,.45)}
+
+/* ---------- floating pill navbar ---------- */
+header{top:14px;left:50%;right:auto;transform:translateX(-50%);width:min(1240px,95%);
+  background:rgba(255,255,255,.85);backdrop-filter:blur(16px);-webkit-backdrop-filter:blur(16px);
+  border:1px solid rgba(236,227,211,.9);border-radius:99px;box-shadow:0 14px 38px rgba(16,34,46,.13)}
+header.scrolled{background:rgba(255,255,255,.94);box-shadow:0 20px 46px rgba(16,34,46,.18)}
+header .nav{padding:9px 10px 9px 20px;width:100%}
+header .logo img{width:38px;height:38px}
+header .logo{font-size:1.18rem}
+@media(max-width:760px){
+  header{top:10px;width:94%}
+  header .nav{padding:8px 8px 8px 14px}
+  .nav-links{top:86px;left:3%;right:3%;border-radius:22px;border:1px solid var(--line)}
+}
+
+/* ---------- CTA pill (Ready to make your business online?) ---------- */
+.cta-pill{display:flex;align-items:center;gap:18px;background:#fff;border:1px solid var(--line);
+  border-radius:99px;box-shadow:0 24px 50px rgba(16,34,46,.13);padding:16px 18px 16px 22px;
+  max-width:860px;margin:0 auto 52px;position:relative;z-index:5}
+.cta-pill .tick{width:52px;height:52px;flex-shrink:0;border-radius:50%;background:var(--grad-soft);
+  display:grid;place-items:center}
+.cta-pill .tick svg{width:26px;height:26px;stroke:var(--sky);stroke-width:3;fill:none;stroke-linecap:round;stroke-linejoin:round}
+.cta-pill .txt{flex:1;min-width:0}
+.cta-pill .txt b{display:block;font-size:1.13rem;font-weight:700;line-height:1.25}
+.cta-pill .txt span{font-size:.9rem;color:var(--muted)}
+.cta-pill .btn{flex-shrink:0}
+@media(max-width:760px){
+  .cta-pill{flex-wrap:wrap;border-radius:26px;padding:20px;gap:14px;margin-bottom:40px}
+  .cta-pill .tick{width:44px;height:44px}
+  .cta-pill .txt b{font-size:1.05rem}
+  .cta-pill .btn{width:100%;justify-content:center}
+}
+
+/* ---------- hero motion assets (web-niche, CSS-only) ---------- */
+.hero-visual{position:relative;perspective:1200px}
+.hero-visual::before{content:"";position:absolute;inset:-8% -6% auto;height:115%;z-index:0;pointer-events:none;
+  background:
+    radial-gradient(420px 300px at 18% 12%,rgba(18,136,200,.20),transparent 62%),
+    radial-gradient(460px 320px at 85% 88%,rgba(20,184,166,.20),transparent 62%);
+  filter:blur(6px)}
+.hero-visual .browser-card{z-index:1;transform-style:preserve-3d;will-change:transform}
+.phone-card{position:absolute;left:-26px;bottom:-30px;z-index:3;width:118px;background:#10222e;border-radius:20px;
+  padding:8px;box-shadow:0 26px 50px rgba(16,34,46,.30);animation:floaty 6.5s ease-in-out infinite;animation-delay:.7s}
+.phone-card .ph-screen{background:#fdfcf9;border-radius:13px;padding:10px 9px;overflow:hidden}
+.phone-card .ph-bar{height:6px;width:38%;border-radius:99px;background:#dfe7ec;margin:0 auto 9px}
+.phone-card .ph-h{height:9px;border-radius:5px;background:var(--grad);width:82%;margin-bottom:6px}
+.phone-card .ph-p{height:5px;border-radius:4px;background:#e7edf1;margin-bottom:5px}
+.phone-card .ph-btn{height:14px;border-radius:99px;background:var(--grad);width:62%;margin-top:7px}
+.phone-card .ph-row{display:flex;gap:5px;margin-top:8px}
+.phone-card .ph-row i{flex:1;height:16px;border-radius:5px;background:#eef4f7;border:1px solid #e3ebef}
+.chip-c{top:52px;left:14px;animation-delay:.5s}
+.chip-d{bottom:74px;left:12px;animation-delay:2.1s}
+@media(max-width:760px){
+  .phone-card{width:92px;left:-4px;bottom:-22px;border-radius:16px}
+  .chip-c{top:auto;bottom:118px;left:6px}
+  .chip-d{display:none}
+  .float-chip{padding:8px 12px;font-size:.7rem}
+  .float-chip .ic{width:28px;height:28px;font-size:.85rem}
+}
+
+/* ---------- services marquee strip ---------- */
+.marquee{overflow:hidden;padding:20px 0;border-top:1px solid var(--line);border-bottom:1px solid var(--line);
+  background:rgba(255,255,255,.55);-webkit-mask-image:linear-gradient(90deg,transparent,#000 8%,#000 92%,transparent);
+  mask-image:linear-gradient(90deg,transparent,#000 8%,#000 92%,transparent)}
+.marquee-track{display:flex;gap:0;width:max-content;animation:marquee 30s linear infinite}
+.marquee span{display:inline-flex;align-items:center;gap:26px;padding-right:26px;font-weight:700;
+  font-size:1.02rem;letter-spacing:.4px;color:var(--ink-soft);white-space:nowrap}
+.marquee span::after{content:"";width:9px;height:9px;border-radius:50%;background:var(--grad);flex-shrink:0}
+@keyframes marquee{to{transform:translateX(-50%)}}
+
+/* ---------- Lenis smooth-scroll recommended styles ---------- */
+html.lenis,html.lenis body{height:auto}
+.lenis.lenis-smooth{scroll-behavior:auto!important}
+.lenis.lenis-smooth [data-lenis-prevent]{overscroll-behavior:contain}
+.lenis.lenis-stopped{overflow:hidden}
+
+/* ---------- reduced motion: respect the user, save the battery ---------- */
+@media (prefers-reduced-motion: reduce){
+  .marquee-track{animation:none}
+  .float-chip,.phone-card{animation:none}
+  html{scroll-behavior:auto}
+}
