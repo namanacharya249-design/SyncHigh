@@ -479,6 +479,15 @@ body.cta-on .wa-float{bottom:118px}
 /* v5 fix: the progress line now lives INSIDE the header, riding the bottom edge of
    the floating navbar itself — the navbar can never cover it, in any viewer */
 #scrollProgress{position:absolute;top:auto;bottom:2px;left:18px;right:18px;height:4px;z-index:5;border-radius:99px}
+
+/* v5 fix 2: the "line at the bottom" in mobile recordings is the page's styled
+   HORIZONTAL scrollbar flashing while scrolling — some element pokes a few px past
+   the viewport (e.g. the hero glow). Clip horizontal overflow at the root so no
+   horizontal scrollbar can ever form. */
+html,body{overflow-x:hidden;overflow-x:clip}
+@media(max-width:760px){
+  .hero-visual::before{inset:-8% 0 auto}
+}
 @media(max-width:760px){
   header{top:16px;width:92%;box-shadow:0 18px 42px rgba(16,34,46,.20)}
   /* compact one-row CTA bar: small tick, headline, small button inline */
