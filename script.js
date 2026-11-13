@@ -121,9 +121,11 @@
   if (yr) yr.textContent = new Date().getFullYear();
 
   // ---- v2: scroll progress line (draws as you scroll) ----
-  var prog = document.createElement("div");
-  prog.id = "scrollProgress";
-  document.body.appendChild(prog);
+  // The element lives in the static HTML (first child of body) — exactly like the
+  // navbar / CTA bar / WhatsApp button, which render correctly in every viewer.
+  // (A JS-created copy was being painted at the bottom in the mobile in-app viewer.)
+  var prog = document.getElementById("scrollProgress");
+  if (!prog) { prog = document.createElement("div"); prog.id = "scrollProgress"; document.body.appendChild(prog); }
   var pTick = false;
   function updProgress() {
     var h = document.documentElement;
