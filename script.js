@@ -160,6 +160,29 @@
     document.head.appendChild(ls);
   }
 
+  // ---- v3: floating bottom CTA pill (homepage) — appears at the Why section, stays until the footer ----
+  var pill = document.getElementById("ctaPill");
+  var whySec = document.getElementById("whyUs");
+  if (pill && whySec) {
+    var footEl = document.querySelector("footer");
+    var pillTick = false;
+    var updPill = function () {
+      pillTick = false;
+      var vh = window.innerHeight;
+      var wy = whySec.getBoundingClientRect();
+      var ft = footEl ? footEl.getBoundingClientRect() : null;
+      var show = wy.top < vh * 0.9 && (!ft || ft.top > vh * 0.94);
+      pill.classList.toggle("show", show);
+      document.body.classList.toggle("cta-on", show);
+    };
+    var onScrollPill = function () {
+      if (!pillTick) { pillTick = true; requestAnimationFrame(updPill); }
+    };
+    window.addEventListener("scroll", onScrollPill, { passive: true });
+    window.addEventListener("resize", onScrollPill);
+    updPill();
+  }
+
   // ---- v2: hero browser-card tilt (fine pointers / desktop only) ----
   var hv = document.querySelector(".hero-visual");
   if (hv && !reduceMotion && window.matchMedia("(pointer: fine)").matches) {

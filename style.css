@@ -454,3 +454,19 @@ html.lenis,html.lenis body{height:auto}
   .float-chip,.phone-card{animation:none}
   html{scroll-behavior:auto}
 }
+
+/* ============================================================
+   v3 fixes (2026-11-13) — gap before marquee; CTA pill becomes a
+   floating bottom bar on the homepage (Why section -> footer)
+   ============================================================ */
+.marquee{margin-top:38px}
+.cta-pill{position:fixed;left:50%;bottom:16px;width:min(860px,94%);margin:0;z-index:940;
+  transform:translate(-50%,190%);opacity:0;pointer-events:none;
+  transition:transform .55s cubic-bezier(.2,.8,.25,1),opacity .4s ease}
+.cta-pill.show{transform:translate(-50%,0);opacity:1;pointer-events:auto}
+.wa-float{transition:transform .25s,bottom .45s cubic-bezier(.2,.8,.25,1)}
+body.cta-on .wa-float{bottom:118px}
+@media(max-width:760px){
+  .cta-pill{bottom:12px}
+  body.cta-on .wa-float{bottom:186px}
+}
