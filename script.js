@@ -136,32 +136,24 @@
   }, { passive: true });
   updProgress();
 
-  // ---- v2: buttery smooth scrolling (Lenis, glide tuned smoother) ----
-  // Desktop pointers only: on touch devices Lenis fights the native compositor and
-  // breaks position:fixed elements (navbar / progress line) in mobile webviews.
-  // Phones keep their own native momentum scrolling, which is already app-smooth.
-  var reduceMotion = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
-  if (!reduceMotion && window.matchMedia("(pointer: fine)").matches) {
-    var ls = document.createElement("script");
-    ls.src = "https://cdn.jsdelivr.net/npm/lenis@1.1.14/dist/lenis.min.js";
-    ls.onload = function () {
-      if (typeof Lenis === "undefined") return; // CDN failed -> native scroll, site still fine
-      var lenis = new Lenis({ lerp: 0.085, smoothWheel: true, wheelMultiplier: 1, touchMultiplier: 1.15 });
-      function raf(time) { lenis.raf(time); requestAnimationFrame(raf); }
-      requestAnimationFrame(raf);
-      // in-page anchor links glide to their target instead of jumping
-      document.querySelectorAll('a[href^="#"]').forEach(function (a) {
-        a.addEventListener("click", function (e) {
-          var id = a.getAttribute("href");
-          if (id && id.length > 1) {
-            var t = document.querySelector(id);
-            if (t) { e.preventDefault(); lenis.scrollTo(t, { offset: -100 }); }
-          }
-        });
-      });
-    };
-    document.head.appendChild(ls);
-  }
+  // ---- smooth in-page anchors (native scrolling only) ----
+  // The Lenis smooth-scroll library was REMOVED entirely (2026-11-13): it virtualized
+  // scrolling and broke position:fixed elements (navbar / progress line) in mobile
+  // previews and webviews. Every device now uses native scrolling; anchors glide
+  // via the browser's own smooth scroll.
+  document.querySelectorAll('a[href^="#"]').forEach(function (a) {
+    a.addEventListener("click", function (e) {
+      var id = a.getAttribute("href");
+      if (id && id.length > 1) {
+        var t = document.querySelector(id);
+        if (t) {
+          e.preventDefault();
+          var y = t.getBoundingClientRect().top + window.scrollY - 100;
+          window.scrollTo({ top: y, behavior: "smooth" });
+        }
+      }
+    });
+  });
 
   // ---- v3: floating bottom CTA pill (homepage) — appears at the Why section, stays until the footer ----
   var pill = document.getElementById("ctaPill");
