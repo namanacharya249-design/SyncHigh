@@ -369,7 +369,7 @@ html{scrollbar-width:thin;scrollbar-color:#1288c8 #efe7d7}
 ::-webkit-scrollbar-thumb:hover{background:linear-gradient(180deg,#083c7d 0%,#0e6ea8 52%,#0e9bb5 100%)}
 
 /* ---------- scroll progress line (draws across the top) ---------- */
-#scrollProgress{position:fixed;top:0;left:0;right:0;height:4px;z-index:1300;pointer-events:none;
+#scrollProgress{position:fixed;top:0;left:0;right:0;height:4px;z-index:1600;pointer-events:none;
   background:var(--grad);transform-origin:0 50%;transform:scaleX(0);
   border-radius:0 99px 99px 0;box-shadow:0 1px 8px rgba(18,136,200,.45)}
 
