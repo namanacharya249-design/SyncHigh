@@ -470,3 +470,20 @@ body.cta-on .wa-float{bottom:118px}
   .cta-pill{bottom:12px}
   body.cta-on .wa-float{bottom:186px}
 }
+
+/* ============================================================
+   v4 fixes (2026-11-13) — compact mobile CTA bar, progress line
+   above everything, clearer floating navbar gap on mobile
+   ============================================================ */
+#scrollProgress{height:5px;z-index:2500}
+@media(max-width:760px){
+  header{top:14px;width:92%;box-shadow:0 18px 42px rgba(16,34,46,.20)}
+  /* compact one-row CTA bar: small tick, headline, small button inline */
+  .cta-pill{flex-wrap:nowrap;border-radius:99px;padding:10px 10px 10px 14px;gap:11px;bottom:12px}
+  .cta-pill .tick{width:38px;height:38px}
+  .cta-pill .tick svg{width:20px;height:20px}
+  .cta-pill .txt span{display:none}
+  .cta-pill .txt b{font-size:.94rem;line-height:1.2}
+  .cta-pill .btn{width:auto;padding:11px 17px;font-size:.84rem}
+  body.cta-on .wa-float{bottom:114px}
+}
