@@ -179,6 +179,7 @@
   }
 
   // ---- v2: hero browser-card tilt (fine pointers / desktop only) ----
+  var reduceMotion = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
   var hv = document.querySelector(".hero-visual");
   if (hv && !reduceMotion && window.matchMedia("(pointer: fine)").matches) {
     var card = hv.querySelector(".browser-card");
